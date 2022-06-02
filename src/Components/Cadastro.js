@@ -76,4 +76,7 @@ const Container = styled.div`
         font-size: 14px;
         color: #FFFFFF;
     }
+    a{
+        color: #FFFFFF;
+    }
 `
