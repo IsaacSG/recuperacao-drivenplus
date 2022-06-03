@@ -1,18 +1,17 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BaseAPI } from "../Global Data/Data";
 import UserContext from "../Context/UserContext";
 
 export default function Planos() {
-    const [plano, setPlano] = useState([]);
+    const [planos, setPlanos] = useState([]);
     const { user } = useContext(UserContext);
-    const navigate = useNavigate();
 
     useEffect(() => {
         getPlanos()
-    }, [plano])
+    }, [planos])
 
     function getPlanos() {
         const config = {
@@ -22,7 +21,7 @@ export default function Planos() {
         }
 
         const promise = axios.get(`${BaseAPI}/subscriptions/memberships`, config)
-        promise.then(response => setPlano(response.data))
+        promise.then(response => setPlanos(response.data))
 
     }
 
@@ -30,9 +29,9 @@ export default function Planos() {
         <Container>
             <p>Escolha seu Plano</p>
             <ListarPlanos>
-                {plano.map(plano => 
+                {planos.map(plano => 
                 <Plano>
-                    <Link to = {`/subscription/${plano.id}`}>
+                    <Link to = {`/subscriptions/${plano.id}`}>
                         <img src = {plano.image} alt = {plano.id}/>
                         <span>R$ {plano.price}</span>
                     </Link>
