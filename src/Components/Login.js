@@ -57,7 +57,7 @@ const Container = styled.div `
     justify-content: center;
     background-color: #0E0E13;
     padding-top: 134px;
-    padding-bottom: 100px;
+    padding-bottom: 200px;
 
     img{
         width: 299px;
