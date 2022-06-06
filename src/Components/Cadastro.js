@@ -49,7 +49,7 @@ const Container = styled.div`
     justify-content: center;
     background-color: #0E0E13;
     padding-top: 147px;
-    padding-bottom: 50px;
+    padding-bottom: 150px;
 
     input{
         height: 52px;
