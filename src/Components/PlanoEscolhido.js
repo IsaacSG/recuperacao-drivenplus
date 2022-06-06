@@ -4,7 +4,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 import UserContext from '../Context/UserContext';
 import { BaseAPI } from '../Global Data/Data';
-import PlanContext from '../Context/PlanContext';
 import Clipboard from "../Styles/Images/Clipboard.png";
 import Money from "../Styles/Images/Money.png";
 import Arrow from "../Styles/Images/Arrow-left.png";
@@ -14,7 +13,8 @@ export default function PlanoEscolhido() {
     const {ID_DO_PLANO} = useParams();
     const [plano, setPlano] = useState([]);
     const {user} = useContext(UserContext);
-    const {setPlan} = useContext(PlanContext);
+    const {setPlan} = useContext(UserContext);
+    const {setMyperks} = useContext(UserContext);
     const [perks, setPerks] = useState([]);
     const [cardName, setCardName] = useState("");
     const [cardNumber, setCardNumber] = useState("");
@@ -54,13 +54,13 @@ export default function PlanoEscolhido() {
             const promise = axios.post(`${BaseAPI}/subscriptions`, body, config)
 
             promise.then(response => {
-                setPlan({image:response.data.image, perks:response.data.perks})
+                setPlan(response.data.membership);
+                setMyperks(response.data.membership.perks);
                 navigate("/home");
             })
 
             promise.catch(response => {
                 alert("Algo deu errado verifique suas informações e tente novamente(utilize espaço a cada 4 numeros do seu cartão)");
-                console.log(body);
             })
         }
     }
@@ -88,7 +88,7 @@ export default function PlanoEscolhido() {
                 <input type = "text" placeholder = "Nome impresso no cartão" value = {cardName} onChange = {e => setCardName(e.target.value)}/>
                 <input type = "text" placeholder = "Digitos do cartão" value = {cardNumber} onChange = {e => setCardNumber(e.target.value)}/>
                 <Menor>
-                <input className = "Menor" type = "number" placeholder = "Código de segurança" value = {securityNumber} onChange = {e => setSecurityNumber(e.target.value)}/>
+                <input className = "Menor" type = "text" placeholder = "Código de segurança" value = {securityNumber} onChange = {e => setSecurityNumber(e.target.value)}/>
                 <input className = "Menor" type = "text" placeholder = "Validade" value = {expirationDate} onChange = {e => setExpirationDate(e.target.value)}/>
                 </Menor>
             </Inputs>

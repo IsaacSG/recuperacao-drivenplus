@@ -12,6 +12,8 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const {setUser} = useContext(UserContext);
+    const {setPlan} = useContext(UserContext);
+    const {setMyperks} = useContext(UserContext);
     const navigate = useNavigate();
 
     function Entrar() {
@@ -20,7 +22,10 @@ export default function Login() {
         const promise = axios.post(`${BaseAPI}/auth/login`, body);
 
         promise.then(response => {
-            setUser({token:response.data.token, membership:response.data.membership, name:response.data.name})
+            setUser({token:response.data.token, name:response.data.name});
+            setPlan(response.data.membership);
+            setMyperks(response.data.membership.perks);
+            
             if(response.data.membership === null) {
                 navigate("/subscriptions")
             }

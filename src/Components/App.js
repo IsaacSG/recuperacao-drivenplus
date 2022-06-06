@@ -6,14 +6,12 @@ import Planos from "./Planos";
 import PlanoEscolhido from "./PlanoEscolhido";
 import Home from "./Home";
 import { UserProv } from "../Context/UserContext";
-import { PlanProv } from "../Context/PlanContext";
 
 
 export default function App() {
     return (
         <>
         <UserProv>
-            <PlanProv>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element = {<Login />} />
@@ -23,7 +21,6 @@ export default function App() {
                         <Route path="/home" element = {<Home />}/>
                     </Routes>
                 </BrowserRouter>
-            </PlanProv>
         </UserProv>
         </>
     );
